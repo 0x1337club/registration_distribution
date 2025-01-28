@@ -29,36 +29,63 @@
             height: 600px;
             position: relative;
         }
+        .summary {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #555;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>College Frequency Distribution</h1>
+        <h1>Registration Frequency Distribution</h1>
         <div class="chart-container">
             <canvas id="collegeChart"></canvas>
         </div>
+        <div class="summary" id="summary"></div>
     </div>
 
     <script>
+        // Initial data
+        const colleges = [
+            { label: 'IIT Hyderabad', frequency: 5 },
+            { label: 'VNR VJIET', frequency: 56 },
+            { label: 'VBIT', frequency: 5 },
+            { label: 'Professionals & Others', frequency: 6 },
+            { label: 'JNTUH', frequency: 1 },
+            { label: 'MLRIT', frequency: 4 },
+            { label: 'VJIT', frequency: 2 },
+            { label: 'National Forensic Science University', frequency: 4 },
+            { label: 'Sri Indu College of Engineering and Technology', frequency: 5 },
+            { label: 'Osmania University', frequency: 2 },
+            { label: 'IIIT H', frequency: 25 },
+            { label: 'St Josephs', frequency: 2 },
+            { label: 'CVR College', frequency: 3 },
+            { label: 'Institute of Aeronautical Engineering', frequency: 10},
+            { label: 'Shri vishnu engineering college for women', frequency: 2},
+            { label: 'Malla Reddy University', frequency: 5},
+            { label: 'Guru nanak institutions of technology', frequency: 5}
+        ];
+
+        // Sort the data by frequency in descending order
+        colleges.sort((a, b) => b.frequency - a.frequency);
+
+        // Extract sorted labels and data
+        const labels = colleges.map(college => college.label);
+        const frequencies = colleges.map(college => college.frequency);
+
+        // Calculate the total sum of frequencies
+        const totalFrequency = frequencies.reduce((sum, freq) => sum + freq, 0);
+
+        // Display the total sum
+        document.getElementById('summary').innerText = `Total Registrations: ${totalFrequency}`;
+
         const data = {
-            labels: [
-                'IIT Hyderabad',
-                'VNR VJIET',
-                'VBIT',
-                'Professionals & Others',
-                'JNTUH',
-                'MLRIT',
-                'VJIT',
-                'National Forensic Science University',
-                'Indu College',
-                'Osmania University',
-                'IIIT H',
-                'St Josephs',
-                'CVR College'
-            ],
+            labels: labels,
             datasets: [{
                 label: 'Frequency',
-                data: [5, 47, 5, 6, 1, 4, 2, 4, 5, 2, 5, 2, 3],
+                data: frequencies,
                 backgroundColor: '#4f46e5',
                 borderWidth: 1
             }]
