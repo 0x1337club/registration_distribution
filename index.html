@@ -26,7 +26,7 @@
             margin-bottom: 30px;
         }
         .chart-container {
-            height: 600px;
+            height: 800px; /* Increased height for better visibility */
             position: relative;
         }
         .summary {
@@ -59,12 +59,12 @@
             { label: 'National Forensic Science University', frequency: 5 },
             { label: 'Sri Indu College of Engineering and Technology', frequency: 15 },
             { label: 'Osmania University', frequency: 3 },
-            { label: 'IIIT H', frequency: 65 },
+            { label: 'IIIT H', frequency: 66 },
             { label: 'St Josephs', frequency: 2 },
             { label: 'CVR College', frequency: 3 },
             { label: 'Institute of Aeronautical Engineering', frequency: 15},
             { label: 'Shri vishnu engineering college for women', frequency: 4},
-            { label: 'Malla Reddy University', frequency: 29},
+            { label: 'Malla Reddy University', frequency: 53},
             { label: 'Guru nanak institutions of technology', frequency: 15},
             { label: 'Lords College', frequency: 2},
             { label: 'ISL College', frequency: 1},
@@ -73,8 +73,11 @@
             { label: 'University of Hyderabad', frequency: 3},
             { label: 'SNIST', frequency: 3},
             { label: 'Vignans institute of engineering for women', frequency: 1},
-            { label: 'Anurag University', frequency: 7},
-            { label: 'ICFAI Jaipur', frequency: 2}
+            { label: 'Anurag University', frequency: 10},
+            { label: 'ICFAI Jaipur', frequency: 2},
+            { label: 'Narasimha Reddy College', frequency: 10},
+            { label: 'RGUKT', frequency: 1},
+            { label: 'IIIT K', frequency: 2}
         ];
 
         // Sort the data by frequency in descending order
@@ -104,6 +107,7 @@
             type: 'bar',
             data: data,
             options: {
+                indexAxis: 'y', // Set the chart to horizontal
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
@@ -115,23 +119,22 @@
                     },
                     datalabels: {
                         anchor: 'end',
-                        align: 'top',
+                        align: 'right', // Align data labels to the right of the bars
                         font: {
                             weight: 'bold'
                         }
                     }
                 },
                 scales: {
-                    y: {
+                    x: {
                         beginAtZero: true,
                         ticks: {
                             stepSize: 5
                         }
                     },
-                    x: {
+                    y: {
                         ticks: {
-                            maxRotation: 45,
-                            minRotation: 45
+                            autoSkip: false // Ensure all labels are displayed
                         }
                     }
                 }
@@ -141,14 +144,14 @@
                     var ctx = chart.ctx;
                     ctx.save();
                     ctx.font = 'bold 12px Arial';
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'bottom';
+                    ctx.textAlign = 'right'; // Align text to the right
+                    ctx.textBaseline = 'middle';
                     ctx.fillStyle = '#333';
 
                     chart.data.datasets.forEach(function(dataset, i) {
                         chart.getDatasetMeta(i).data.forEach(function(bar, index) {
                             var data = dataset.data[index];
-                            ctx.fillText(data, bar.x, bar.y - 5);
+                            ctx.fillText(data, bar.x + 20, bar.y); // Adjust text position
                         });
                     });
                     ctx.restore();
